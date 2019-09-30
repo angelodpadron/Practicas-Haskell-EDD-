@@ -9,10 +9,10 @@ module Set (
     addS, 
     belongs, 
     sizeS,
-    --removeS,
-    --unionS,
-    --intersectionS,
-    --setToList,
+    removeS,
+    unionS,
+    intersectionS,
+    setToList,
 ) where
 
 -- "a" es un entero positivo y unico en la lista
@@ -55,19 +55,23 @@ remover a (x:xs) = remover a [x] ++ remover a xs
 unionS :: Eq a => Set a -> Set a -> Set a
 unionS (UnSet xs i) (UnSet ys j) = (UnSet (union xs ys) (size (union xs ys)))
 
-{--union :: Eq a => [a] -> [a] -> [a]
-union [] [] = []                                                                                 --pattern fucking
-union [x] [] = [x]
-union [] [x] = [x]
-union [x] [y] = 
-    if (x == y) 
-        then [x] 
-        else [x,y]
-union [x] ys = if elem x ys then [x] ++ ys else ys
-union xs [y] = if elem y xs then [y] ++ xs else xs 
---}
-
+union :: Eq a => [a] -> [a] -> [a]
+union [] ys = ys 
+union (x:xs) ys = if not (elem x ys) then x : ys else ys  
 
 size :: [a] -> Int
 size [] = 0
 size (x:xs) = 1 + size xs
+
+-- Orden (n)
+interseccionS :: Eq a => Set a -> Set a -> Set a
+interseccionS (UnSet xs i) (UnSet ys j) = (UnSet (interseccion xs ys) (size (interseccion xs ys)))
+
+interseccion :: Eq a => [a] -> [a] -> [a]
+interseccion [] ys = ys 
+interseccion (x:xs) ys = if (elem x ys) then ys else x:ys
+
+--Orden (1)
+setToList :: Eq a => Set a -> [a]
+setToList (UnSet xs i) = xs
+
