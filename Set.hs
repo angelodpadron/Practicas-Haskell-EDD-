@@ -3,7 +3,6 @@
 
 --2
 module Set (
-
     Set,
     emptyS, 
     addS, 
@@ -11,7 +10,7 @@ module Set (
     sizeS,
     removeS,
     unionS,
-    intersectionS,
+    interseccionS,
     setToList,
 ) where
 
