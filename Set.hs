@@ -56,7 +56,7 @@ unionS (UnSet xs i) (UnSet ys j) = (UnSet (union xs ys) (size (union xs ys)))
 
 union :: Eq a => [a] -> [a] -> [a]
 union [] ys = ys 
-union (x:xs) ys = if not (elem x ys) then x : ys else ys  
+union (x:xs) ys = union xs (if (elem x ys) then ys else x : ys)
 
 size :: [a] -> Int
 size [] = 0
