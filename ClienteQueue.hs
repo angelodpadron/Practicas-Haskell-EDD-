@@ -19,7 +19,7 @@ unionQ :: Queue a -> Queue a -> Queue a
 unionQ q1 q2 = 
     if isEmptyQ q1
         then q2
-        else unionQ (queue (firstQ q2) q1) (dequeue q2) -- revisar!
+        else unionQ (queue (firstQ q2) q1) (dequeue q2) -- revisar aca!
 
 union :: Eq a => [a] -> [a] -> [a]
 union [] ys = ys 
