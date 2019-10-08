@@ -1,6 +1,9 @@
 -- PRACTICA 5
 
-import Map
+-- Ejercicio 1
+
+--import Map version_1
+import Map_v2
 
 buscarClaves :: Eq k => [k] -> Map k v -> [Maybe v]
 buscarClaves [] _ = []
@@ -27,4 +30,29 @@ union (x:xs) ys = union xs (if (elem x ys)
     then ys 
     else x : ys)
 
---mapSuccM :: Eq k => [k] -> Map k Int -> Map k Int
+-- Orden (n²)
+mapSuccM :: Eq k => [k] -> Map k Int -> Map k Int
+mapSuccM [] mapa = mapa 
+mapSuccM (k:ks) mapa = assocM k (unZip (lookUpM k mapa) + 1) (mapSuccM ks mapa) 
+
+-- Orden (1)
+unZip :: Maybe a -> a
+unZip (Nothing) = error "no existe valor asociado"
+unZip (Just x) = x
+
+agregarMap :: Eq k => Map k v -> Map k v -> Map k v
+agregarMap mapa1 mapa2 = assocEmAll (listaDatos mapa1) mapa2
+
+-- Orden (n)
+assocEmAll :: Eq k => [(k, v)] -> Map k v -> Map k v
+assocEmAll [] mapa = mapa
+assocEmAll (kv:kvs) mapa = assocM (fst kv) (snd kv) (assocEmAll kvs mapa)
+
+-- Orden (n²)
+listaDatos :: Eq k => Map k v -> [(k, v)]
+listaDatos mapa = zip (domM mapa) (imgM (domM mapa) mapa)
+
+--Orden (n)
+imgM :: Eq k => [k] -> Map k v -> [v]
+imgM [] mapa = []
+imgM (k:ks) mapa = (unZip (lookUpM k mapa)) : imgM ks mapa
