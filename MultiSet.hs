@@ -48,9 +48,10 @@ intersectionL :: Eq a => [a] -> [a] -> [a]
 intersectionL [] ys = ys 
 intersectionL (x:xs) ys = intersectionL xs (if (elem x ys) then ys else (x:ys)) 
 
-{--
-multiSetToList :: MultiSet a -> [(Int, a)]
-multiSetToList (MS xs i) = ListToList xs
 
-ListToList :: Eq a => [a] -> [(Int, a)]
-ListToList --}
+multiSetToList :: Eq a => MultiSet a -> [(Int, a)]
+multiSetToList (MS xs i) = listToList xs
+
+listToList :: Eq a => [a] -> [(Int, a)]
+listToList [] = []
+listToList (x:xs) = ((ocurrencesL x (x:xs)), x) : (listToList xs) 
