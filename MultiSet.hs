@@ -50,7 +50,11 @@ intersectionL (x:xs) ys = intersectionL xs (if (elem x ys) then ys else (x:ys))
 
 
 multiSetToList :: Eq a => MultiSet a -> [(Int, a)]
-multiSetToList (MS xs i) = listToList xs
+multiSetToList (MS xs i) = componerLista (filtrarRepetidos xs) xs --lista sin repetidos + lista original para consultar ocurrencias
+
+
+componerLista :: Eq a => [a] -> [a] -> [(Int, a)]
+componerLista (x:xs) (y:ys) = ((ocurrencesL y (y:ys)), x) : componerLista xs ys 
 
 listToList :: Eq a => [a] -> [(Int, a)]
 listToList [] = []
