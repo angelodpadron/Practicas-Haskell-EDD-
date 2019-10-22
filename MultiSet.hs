@@ -48,14 +48,11 @@ intersectionL :: Eq a => [a] -> [a] -> [a]
 intersectionL [] ys = ys 
 intersectionL (x:xs) ys = intersectionL xs (if (elem x ys) then ys else (x:ys)) 
 
-
 multiSetToList :: Eq a => MultiSet a -> [(Int, a)]
-multiSetToList (MS xs i) = componerLista (filtrarRepetidos xs) xs --lista sin repetidos + lista original para consultar ocurrencias
+multiSetToList (MS xs i) = componerLista xs --lista sin repetidos + lista original para consultar ocurrencias
 
+componerLista :: Eq a => [a] -> [(Int, a)]
+componerLista [] = []
+componerLista (x:xs) = ((ocurrencesL x xs) + 1, x) : componerLista xs
 
-componerLista :: Eq a => [a] -> [a] -> [(Int, a)]
-componerLista (x:xs) (y:ys) = ((ocurrencesL y (y:ys)), x) : componerLista xs ys 
-
-listToList :: Eq a => [a] -> [(Int, a)]
-listToList [] = []
-listToList (x:xs) = ((ocurrencesL x (x:xs)), x) : (listToList xs) 
+-- ERA CON MAP PALACIOS!
